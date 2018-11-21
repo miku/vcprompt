@@ -1,5 +1,4 @@
-vcprompt: version control information in your prompt
-====================================================
+# vcprompt: version control information in your prompt
 
 vcprompt is a little C program that prints a short string with
 barebones information about the current working directory for various
@@ -18,14 +17,14 @@ require external libraries (see "Dependencies" below).
 
 To build vcprompt from the source tarball:
 
-  ./configure
-  make
+    $ ./configure
+    $ make
 
 If you're building in a source checkout, you also need GNU autoconf:
 
-  autoconf
-  ./configure
-  make
+    $ autoconf
+    $ ./configure
+    $ make
 
 (vcprompt requires GNU make, so if you are using a BSD variant where
 the default make is BSD make, you will need to install GNU make and
@@ -33,11 +32,11 @@ run "gmake".)
 
 To install it in your home directory:
 
-  make install PREFIX=$HOME
+    make install PREFIX=$HOME
 
 To make life easier for packagers, the Makefile also supports DESTDIR:
 
-  make install DESTDIR=/tmp/packageroot PREFIX=/usr
+    make install DESTDIR=/tmp/packageroot PREFIX=/usr
 
 Please report build failures to the development mailing list,
 vcprompt-devel@googlegroups.com.
@@ -59,18 +58,18 @@ the build system, vcprompt will support Subversion <= 1.6. Either way,
 the build should succeed and the tests should pass. To install the
 required files:
 
-  sudo apt-get install libsqlite3-dev   # Debian, Ubuntu
-  sudo yum install libsqlite3x-devel    # Fedora, Red Hat
+    sudo apt-get install libsqlite3-dev   # Debian, Ubuntu
+    sudo yum install libsqlite3x-devel    # Fedora, Red Hat
 
 If you have multiple versions of SQLite installed (this can be a
 problem on Mac OS X), you might need to specify the installation
 prefix of the one you want -- e.g., to use the brew package:
 
-  ./configure --with-sqlite3=/usr/local
+    ./configure --with-sqlite3=/usr/local
 
 To see which features are built-in to your vcprompt binary, run
 
-  ./vcprompt -F
+    ./vcprompt -F
 
 
 Configuration
@@ -80,13 +79,13 @@ Configuration
 
 To use it with bash, just call it in PS1:
 
-  PS1='\u@\h $(vcprompt)\$ '
+    PS1='\u@\h $(vcprompt)\$ '
 
 To use it with zsh, you need to enable shell option PROMPT_SUBST, and
 then do similarly to bash:
 
-  setopt prompt_subst
-  PROMPT='[%n@%m] [%~] $(vcprompt)'
+    setopt prompt_subst
+    PROMPT='[%n@%m] [%~] $(vcprompt)'
 
 
 Format Strings
@@ -96,24 +95,24 @@ You can customize the output of vcprompt using format strings, which
 can be specified either on the command line or in the VCPROMPT_FORMAT
 environment variable. For example:
 
-  vcprompt -f "%b"
+    vcprompt -f "%b"
 
 and
 
-  VCPROMPT_FORMAT="%b" vcprompt
+    VCPROMPT_FORMAT="%b" vcprompt
 
 are equivalent.
 
 Format strings use printf-like "%" escape sequences:
 
-  %n  name of the VC system managing the current directory
-      (e.g. "cvs", "hg", "git", "svn")
-  %b  current branch name
-  %r  current revision
-  %u  ? if there are any unknown files
-  %m  + if there are any uncommitted changes (added, modified, or
-      removed files)
-  %%  a single % character
+    %n  name of the VC system managing the current directory
+        (e.g. "cvs", "hg", "git", "svn")
+    %b  current branch name
+    %r  current revision
+    %u  ? if there are any unknown files
+    %m  + if there are any uncommitted changes (added, modified, or
+        removed files)
+    %%  a single % character
 
 All other characters are expanded as-is.
 
@@ -125,17 +124,17 @@ Testing
 
 To run vcprompt's test suite:
 
-  make check
+    $ make check
 
 Test failures should be loud and obvious. Please report any test
 failures to the development mailing list:
 
-  vcprompt-devel@googlegroups.com.
+* vcprompt-devel@googlegroups.com.
 
 To check for memory errors, you can run vcprompt's test suite under
 valgrind:
 
-  make grind
+    $ make grind
 
 Obviously, this requires that you have valgrind installed.
 
@@ -151,8 +150,8 @@ each installed in a separate prefix.
 For example, I keep multiple versions in /usr/local/subversion-1.x, so
 I can test them like this:
 
-  rm -f tests/svn-repo*.tar && make check-svn TOOLPATH=/usr/local/subversion-1.6/bin
-  rm -f tests/svn-repo*.tar && make check-svn TOOLPATH=/usr/local/subversion-1.7/bin
+    $ rm -f tests/svn-repo*.tar && make check-svn TOOLPATH=/usr/local/subversion-1.6/bin
+    $ rm -f tests/svn-repo*.tar && make check-svn TOOLPATH=/usr/local/subversion-1.7/bin
 
 Actually *building* multiple versions of Subversion is harder than you
 would believe. (In fact, I've been unable to build anything older than
@@ -162,9 +161,9 @@ untested.)
 TOOLPATH is supported for all tools; I also keep multiple versions of
 Mercurial around, so I can test vcprompt against them:
 
-  rm -f tests/hg-repo.tar && make check-svn TOOLPATH=/usr/local/mercurial-2.4/bin
-  rm -f tests/hg-repo.tar && make check-svn TOOLPATH=/usr/local/mercurial-2.5/bin
-  [...etc...]
+    $ rm -f tests/hg-repo.tar && make check-svn TOOLPATH=/usr/local/mercurial-2.4/bin
+    $ rm -f tests/hg-repo.tar && make check-svn TOOLPATH=/usr/local/mercurial-2.5/bin
+    # [...etc...]
 
 
 Contributing
@@ -175,11 +174,11 @@ Patches are welcome.  Please follow these guidelines:
   * Ensure that the tests pass before and after your patch. To run the
     tests quickly:
 
-      make check
+        $ make check
 
     To run the tests using valgrind (detect memory leaks):
 
-      make grind
+        $ make grind
 
     If you cannot run the tests on a POSIX-compliant system, that is a
     bug: please let me know.
@@ -220,8 +219,7 @@ Patches are welcome.  Please follow these guidelines:
     don't do it, I'll probably forget.)
 
 
-Author Contact
-==============
+# Author Contact
 
 vcprompt was written by Greg Ward <greg at gerg dot ca>.
 
@@ -232,8 +230,7 @@ repositories:
   http://bitbucket.org/gward/vcprompt/
 
 
-Other Contributors
-==================
+# Other Contributors
 
 In chronological order:
 
